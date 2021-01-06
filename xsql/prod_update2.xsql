@@ -1,0 +1,81 @@
+<?xml version="1.0"?> 
+<?xml-stylesheet type="text/xsl" href="../xsl/thanks.xsl" ?>
+<page connection="{@connection}" xmlns:xsql="urn:oracle-xsql">
+
+ <xsql:dml >
+	BEGIN
+	 UPDATE product		
+   SET 
+          name='{@name}',
+          price={@price},
+          category_id={@category_ID},
+          doc=sys.xmltype.createXML('{@doc}'),	
+          image_id={@ID}
+	 
+   WHERE id={@ID};
+	  
+	END;
+  </xsql:dml>
+   <xsql:dml>
+
+  BEGIN
+	 UPDATE prod_cat_joiner 
+   SET 
+         product_id={@ID},
+          product_cat_id={@category_ID}
+	 
+   WHERE  product_id={@ID};		
+  
+	END;
+  </xsql:dml>
+   <xsql:dml>
+
+  BEGIN
+  
+	 <![CDATA[
+  
+  UPDATE product_image	
+    SET 
+          image_URL='{@image_URL}',
+          width={@width},
+          height={@height}
+	 WHERE  product_image.id={@ID};
+  ]]>
+	 
+	END;
+
+</xsql:dml>
+<xsql:dml>
+COMMIT
+</xsql:dml>
+ <xsql:set-stylesheet-param name="updated_product" value="{@ID}"/>
+<!--It does not work as a whole transaction-->
+
+ <!--xsql:dml  commit="yes" bind-params="
+                name
+                price
+                category_id               
+                doc
+                image_id
+                product_id
+                prod_cat_id
+                image_URL
+                width
+                height
+                " 
+			>
+
+      momnpop.update_product( 
+                i_name => ?, 
+                i_price => ?,
+                i_category_id => ?, 
+                i_doc => ?,
+                i_image_id => ? ,             
+                i_product_id => ?,
+                i_product_cat_id => ?,
+                i_image_URL => ?,
+                i_width => ?,
+                i _height => ?
+               );
+  </xsql:dml--> 
+</page>

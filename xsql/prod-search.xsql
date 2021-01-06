@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../xsl/prod-search.xsl"?>
+<!--Modified page to return all products without any input-->
+<prod-search connection="momnpop" 
+    xmlns:xsql="urn:oracle-xsql">
+      
+<xsql:set-page-param name="max-rows" value="8"/>
+   
+ <xsql:include-xsql href="cat-nav.xsql"/>
+ <xsql:query rowset-element="PRODUCT_SEARCH"
+    row-element="PRODUCT"
+    max-rows="{@max-rows}"
+    skip-rows="{@skip-rows}"   
+    >    
+       SELECT p.id AS product_id, 
+              p.name AS product_name, 
+              p.doc.extract('/product/summary/text()').getStringVal() AS summary, 
+              pc.id AS category_id,
+              pc.name AS category
+ 	FROM product p, product_category pc
+  	WHERE/*	 contains(doc,nvl('{@search_terms}','%'))>0 
+    	AND */ P.NAME LIKE INITCAP('%{@search_terms}%')
+	AND pc.id=p.category_id
+	ORDER BY contains(doc,nvl('{@search_terms}','%'))
+ </xsql:query>   
+ <xsql:set-stylesheet-param name="search_terms" value="{@search_terms}"/> 
+ <xsql:set-stylesheet-param name="row-count">
+  	SELECT count(p.id) 
+    	FROM product p, product_category pc
+  	WHERE /*contains(doc,nvl('{@search_terms}','%'))>0
+    	AND */ P.NAME LIKE INITCAP('%{@search_terms}%')
+	AND pc.id=p.category_id 
+ </xsql:set-stylesheet-param>
+ <xsql:set-stylesheet-param name="skip-rows" value="{@skip-rows}"/>  
+ <xsql:set-stylesheet-param name="max-rows" value="{@max-rows}"/> 
+</prod-search>
+

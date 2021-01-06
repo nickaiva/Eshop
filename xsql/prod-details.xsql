@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="../xsl/prod-details.xsl"?> 
+<prod-details connection="momnpop" 
+    xmlns:xsql="urn:oracle-xsql"
+    >  
+ <xsql:include-xsql href="cat-nav.xsql"/>
+ <xsql:query rowset-element="PRODUCT-SET"
+    row-element="DETAILS"
+    product_id="0"
+    bind-params="product_id">
+   SELECT p.id,
+          p.name,
+          p.price,
+          pi.image_url,
+          width,
+          height 
+      FROM product p,
+	product_image pi 
+      WHERE p.id=? 
+	AND p.image_id=pi.id(+)
+ </xsql:query>      
+ <xsql:include-owa product_id="0" bind-params="product_id" >
+    momnpop.get_product_xml(?);
+ </xsql:include-owa> 
+ <xsql:query rowset-element="CATEGORY-ID-SET"
+       row-element="CATEGORY-ID-ROW"
+       category_id="-1"
+       bind-params="category_id category_id product_id category_id product_id"
+       >
+    SELECT pc.name AS category_name,
+           	pc.id AS category_id 
+     FROM product_category pc,
+	product p    
+     WHERE (?>=0 AND pc.id=? AND p.id=?)
+      OR
+       (?=-1 AND p.id=? AND p.category_id=pc.id) 
+ </xsql:query>
+ <xsql:include-param name="category_name_cookie"/>
+ <xsql:include-param name="category_name_sess"/>
+</prod-details>

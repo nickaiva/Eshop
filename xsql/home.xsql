@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../xsl/home.xsl"?>
+
+<home connection="momnpop" 
+    xmlns:xsql="urn:oracle-xsql">  
+
+<!--xsql:set-stylesheet-param name="DATETIME" value="{@DATETIME}"/-->
+
+<xsql:query rowset-element="PRODUCT_CATEGORIES"
+    row-element="CATEGORY">
+   SELECT pc.id, pc.name,pc.description,
+  CURSOR(SELECT p.id,p.name
+           FROM product p,prod_cat_joiner pcj
+           WHERE p.id=pcj.product_id
+                  AND
+                 pc.id=pcj.product_cat_id) AS products
+  FROM product_category pc
+  ORDER BY pc.name     
+</xsql:query>
+      
+<xsql:include-xsql href="promo.xsql"/>
+<!-- An extra for the Date-->	
+ <!--xsql:query> 
+
+	SELECT TO_CHAR(SYSDATE,'Day, DD "of" Month YYYY HH24:MI') AS DATETIME
+	FROM DUAL
+
+</xsql:query-->
+
+</home>

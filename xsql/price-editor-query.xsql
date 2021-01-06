@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsql:query     
+    connection="{@connection}"
+    xmlns:xsql="urn:oracle-xsql"
+    rowset-element="PRICE_EDITOR_QUERY"
+    row-element="PRICE_EDITOR_PRODUCT">  
+     SELECT p.id AS product_id,
+          	 p.name AS product_name,
+          	 pc.name AS product_cat_name,
+          	 p.price AS product_price
+     FROM  product p, 
+	product_category pc
+     WHERE pc.id=p.category_id             
+        AND p.name LIKE '{@terms}'
+        AND length('{@terms}')>0  
+<xsql:no-rows-query>
+No such product was found!
+</xsql:no-rows-query >     
+</xsql:query>
+ 

@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../xsl/thanks.xsl"?>
+<page connection="{@connection}" xmlns:xsql="urn:oracle-xsql">
+<xsql:query rowset-element="PRODUCT_CATEGORIES"
+    row-element="CATEGORY">
+   SELECT pc.id,
+	pc.name
+    FROM product_category pc
+  ORDER BY pc.id     
+</xsql:query>
+ <xsql:dml>
+	BEGIN
+	 INSERT INTO product
+		(
+		id,
+		name,
+		price,
+		category_id,
+		doc,
+		image_id	
+		)
+	 VALUES(
+		product_seq.nextval,
+		'{@name}',
+		{@price},
+		{@category_ID},
+		sys.xmltype.createXML('{@doc}'),
+		product_seq.nextval
+		);
+	
+	 INSERT INTO prod_cat_joiner
+	 VALUES(
+		product_seq.currval,
+		{@category_ID}
+		);
+    <![CDATA[
+    	 INSERT INTO product_image
+	 VALUES(
+		product_seq.currval,
+    		'{@image_URL}',
+    		{@width},
+    		{@height}
+		);
+	 ]]>
+	 COMMIT;
+	END;
+
+</xsql:dml>
+  <xsql:set-stylesheet-param name="updated_product" value="{@name}"/>
+</page>

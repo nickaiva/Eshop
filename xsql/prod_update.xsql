@@ -1,0 +1,35 @@
+<?xml version="1.0"?> 
+<?xml-stylesheet type="text/xsl"  href="../xsl/prod_update.xsl"?> <!---->
+
+<page connection="{@connection}" xmlns:xsql="urn:oracle-xsql">
+<xsql:set-stylesheet-param name="product_id" value="{@ID}"/>
+<xsql:query rowset-element="PRODUCT_CATEGORIES"
+    row-element="CATEGORY">
+   SELECT pc.id,
+	pc.name
+    FROM product_category pc
+  ORDER BY pc.id     
+</xsql:query>
+
+ <xsql:query rowset-element="PRODUCT-SET"
+    row-element="DETAILS"
+    product_id="{@ID}"
+    bind-params="product_id">
+   SELECT 	p.id,
+         	p.name,
+          	p.price,
+          	pi.image_url,
+       	width,
+       	height 
+      FROM product p,
+	product_image pi 
+      WHERE p.id=?
+      AND p.image_id=pi.id(+)
+<xsql:no-rows-query>No  such  product found!</xsql:no-rows-query>
+ </xsql:query>      
+ <xsql:include-owa product_id="{@ID}" bind-params="product_id" >
+    momnpop.get_product_xml(?);
+ </xsql:include-owa> 
+
+
+</page>

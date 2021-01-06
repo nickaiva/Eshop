@@ -1,0 +1,82 @@
+BODY {
+font-family:Garamont;
+
+}
+.backoffice{
+color:"Teal";
+font-family:Garamont;
+background-color:"#ffcf00";
+}
+.banner-style
+{
+background-color:Navy;
+
+}
+
+.frame-table
+{
+	background-color:Gray;
+}
+
+
+.banner-title
+{
+color: white;
+font-size: 45px;
+}
+.banner-subtitle
+{
+	color: White;
+	font-size: 20px;
+	
+}
+.category
+{
+	color:Black;
+	font-size:20px;
+}
+.search-results
+{
+	color:Black;
+	font-size:20px;
+}
+.cat-directory
+{
+ background-color:#eeeeee; 
+ font-size:20px; 
+}
+.product-name
+{
+ font-size:40px;	
+}
+.product-price
+{
+ font-size:30px;
+}
+.product-summary
+{
+  font-size:20px;	
+}
+.product-description
+{
+  font-size:20px;	
+}
+A:link
+{
+color:DarkSlateBlue;
+}
+
+A:hover
+{
+color:Teal;
+}
+A:visited
+{
+color:Blueviolet;
+}
+A:active
+{
+color:red;
+}
+
+

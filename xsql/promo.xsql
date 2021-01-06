@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<xsql:query 
+    connection="momnpop" 
+    xmlns:xsql="urn:oracle-xsql"
+    rowset-element="PROMOS"
+    row-element="PROMO">
+  SELECT url , 
+	product_id
+   FROM promotion
+   WHERE status='ACTIVE'
+   ORDER BY slot
+</xsql:query>

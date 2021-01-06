@@ -1,0 +1,22 @@
+<?xml version="1.0"?> 
+<?xml-stylesheet type="text/xsl" href="../xsl/thanks.xsl" ?>
+<page connection="{@connection}" xmlns:xsql="urn:oracle-xsql">
+ <xsql:dml>
+	BEGIN
+	 delete FROM  product		
+	 WHERE id={@ID};	
+	 
+	 delete FROM  prod_cat_joiner		
+	 WHERE product_id={@ID}; 
+	
+	 delete FROM  promotion		
+	 WHERE product_id={@ID}; 
+	
+	 delete FROM  product_image		
+	 WHERE id={@ID};	
+	
+	 COMMIT;
+	END;
+</xsql:dml>
+<xsql:set-stylesheet-param name="updated_product" value="{@ID}"/>
+</page>

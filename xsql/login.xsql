@@ -1,0 +1,9 @@
+<?xml version="1.0"?> 
+<?xml-stylesheet type="text/xsl"  href="../xsl/username.xsl" ?> <!---->
+<page connection="{@password}"  xmlns:xsql="urn:oracle-xsql">
+<xsql:set-session-param name="connection" value="{@password}" />
+	<xsql:query >
+	SELECT  user AS "username"
+	FROM dual
+	</xsql:query>
+</page>

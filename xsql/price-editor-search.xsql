@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../xsl/price-editor.xsl"?>
+<prod-search connection="{@connection}" 
+    xmlns:xsql="urn:oracle-xsql">  
+ 
+ <xsql:set-stylesheet-param name="terms" value="{@terms}"/>
+ <xsql:include-xsql href="price-editor-query.xsql"/>      
+</prod-search>

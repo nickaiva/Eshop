@@ -1,0 +1,24 @@
+<?xml version="1.0"?> 
+<?xml-stylesheet type="text/xsl" href="../xsl/thanks.xsl" ?>
+<page connection="{@connection}" xmlns:xsql="urn:oracle-xsql">
+
+ <xsql:dml>
+	BEGIN
+	 UPDATE promotion		
+   SET 
+          slot={@slot},
+          product_id={@product_ID},
+          URL='{@URL}',
+          status='{@status}'
+	 
+   WHERE id={@ID};
+	  
+	END;
+  </xsql:dml>
+   
+<xsql:dml>
+COMMIT
+</xsql:dml>
+<xsql:set-stylesheet-param name="updated_product" value="{@ID}"/> 
+<!--It does not work as a whole transaction-->
+</page>

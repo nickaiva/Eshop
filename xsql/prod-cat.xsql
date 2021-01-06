@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../xsl/prod-cat.xsl"?>
+
+<prod-cat connection="momnpop" 
+    xmlns:xsql="urn:oracle-xsql">  
+
+ <xsql:include-xsql href="cat-nav.xsql"/>
+
+ <xsql:query rowset-element="PRODUCTS"
+    row-element="PRODUCT"
+    category_id="0"
+    bind-params="category_id">
+
+   SELECT p.id AS product_id,
+       p.name AS product_name,
+       p.doc.extract('/product/summary/text()').getStringVal() AS summary    
+  FROM product p,prod_cat_joiner pcj
+  WHERE pcj.product_cat_id=? AND p.id=pcj.product_id    
+ </xsql:query>      
+ <xsql:query rowset-elements="CATEGORY_ROWSET"    row-element="CATEGORY_ROW"    category_id="0"    bind-params="category_id">  SELECT id AS category_id, name AS category_name FROM product_category WHERE id=? </xsql:query>  <xsql:set-session-param name="category_name_sess"  category_id="0"  bind-params="category_id">   SELECT name FROM product_category WHERE id=? </xsql:set-session-param> <xsql:set-cookie name="category_name_cookie"  category_id="0"  bind-params="category_id">   SELECT name FROM product_category WHERE id=? </xsql:set-cookie> </prod-cat>

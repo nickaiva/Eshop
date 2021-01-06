@@ -1,0 +1,6 @@
+<?xml version="1.0"?> 
+<!--?xml-stylesheet type="text/xsl" href="../xsl/thanks.xsl" ?-->
+<?xml-stylesheet type="text/xsl" href="../xsl/prod_delete.xsl"?>
+<page connection="{@connection}" xmlns:xsql="urn:oracle-xsql">
+
+</page>

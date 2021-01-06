@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../xsl/price-editor.xsl"?>
+<price-editor-dummy xmlns:xsql="urn:oracle-xsql">       
+</price-editor-dummy>

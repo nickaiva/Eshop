@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--<?xml-stylesheet type="text/xsl" href="helloworld.xsl"?>-->
+<xsql:query 
+    connection="momnpop" 
+    xmlns:xsql="urn:oracle-xsql"
+    rowset-element="product_categories"
+    row-element="category">
+       SELECT id,name 
+         FROM product_category
+         ORDER BY name
+</xsql:query>

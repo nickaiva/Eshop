@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../xsl/price-editor.xsl"?>
+<price-update xmlns:xsql="urn:oracle-xsql" connection="{@connection}"> 
+ <update-results>
+  <xsql:dml commit="yes"  
+    product_id="0"
+    bind-params="new_price product_id">  
+  UPDATE product
+   SET price=?
+   WHERE id=?
+  </xsql:dml>  
+ </update-results>
+ <xsql:dml>COMMIT</xsql:dml>  
+ <xsql:set-stylesheet-param name="terms" value="{@terms}"/>  
+ <xsql:set-stylesheet-param name="updated_product" value="{@product_name}"/>
+ <xsql:include-xsql href="price-editor-query.xsql"/>      
+</price-update>
